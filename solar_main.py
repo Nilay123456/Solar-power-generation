@@ -38,15 +38,9 @@ data = {
 
 input_data = pd.DataFrame(data, index=[0])
 
-st.write("Raw Input Data Before Transformation:")
-st.write(input_data)
-
 
 # Apply Yeo-Johnson transformation on 'wind-direction' and 'humidity'
 input_data[['wind-direction', 'humidity']] = yj.transform(input_data[['wind-direction', 'humidity']])
-
-st.write("After Yeo-Johnson Transformation:")
-st.write(input_data)
 
 # List of columns to apply scaler (excluding 'sky-cover')
 scaled_features = ['distance-to-solar-noon', 'temperature', 'wind-direction', 'wind-speed',
@@ -56,17 +50,10 @@ scaled_features = ['distance-to-solar-noon', 'temperature', 'wind-direction', 'w
 input_data[scaled_features] = scaler_transformer.transform(input_data[scaled_features])
 
 
-st.write("After Scaling Transformation:")
-st.write(input_data[scaled_features])
-
-# input_data = input_data.drop(['wind-direction','humidity'],axis=1)
-
-# ✅ Ensure input_data has the correct column order before making predictions
+#  Ensure input_data has the correct column order before making predictions
 expected_columns = loaded_model.feature_names_in_
 input_data = input_data[expected_columns]  # Reorder columns to match training data
 
-st.write("After Scaling Transformation - colums arrange:")
-st.write(input_data)
 
 # Predict 
 transformed_prediction = loaded_model.predict(input_data)  # Get transformed target prediction
