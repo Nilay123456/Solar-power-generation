@@ -15,13 +15,10 @@ with open('Xg_Boost_model.pkl', 'rb') as f:
     loaded_model = pickle.load(f)
 
 # Load actual values from saved file
-# try:
+
     actual_values = pd.read_csv("solarpowergeneration.csv")  # Load CSV file
     actual_median = actual_values['power-generated'].median()  # Compute median
     
-st.write(actual_median)
-# except:
-#     actual_median = 50  # Default median if file not found
 
 # Streamlit app
 st.title('Solar Power Generation Predictor')
